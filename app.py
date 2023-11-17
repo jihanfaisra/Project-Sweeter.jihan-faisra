@@ -1,30 +1,3 @@
-from pymongo import MongoClient
-import jwt 
-from datetime import datetime, timedelta
-import hashlib
-from flask import ( 
-Flask,
-render_template, 
-jsonify,
-request, 
-redirect, 
-url_for
-)
-from werkzeug.utils import secure_filename
-
-app = Flask(__name__)
-
-app.config['TEMPLATES_AUTO_RELOAD'] = True
-app.config['UPLOAD_FOLDER'] = '.static/profile_pics'
-
-SECRET_KEY ='SPARTA'
-
-MONGODB_CONNECTION_STRING = 'mongodb+srv://jihan01faisra:MLFsHKhgVXRe9CnG@cluster0.icgeops.mongodb.net/?retryWrites=true&w=majority&appName=AtlasApp'
-client = MongoClient(MONGODB_CONNECTION_STRING)
-db = client.dbsparta_plus_week4
-
-TOKEN_KEY = 'mytoken'
-
 @app.route('/', methods=['GET'])
 def home():
     token_receive = request.cookies.get(TOKEN_KEY)
@@ -251,5 +224,5 @@ def secret():
     except (jwt.ExpiredSignatureError, jwt.exceptions.DecodeError):
         return redirect(url_for("home"))
 
-if __name__ == "__main__":
+if _name_ == "_main_":
     app.run("0.0.0.0", port=5000, debug=True)
